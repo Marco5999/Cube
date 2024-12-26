@@ -350,6 +350,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2663897811600458796, guid: 8f7f2d2d946db5142a98fc1dae194761, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 11.926182
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663897811600458796, guid: 8f7f2d2d946db5142a98fc1dae194761, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 11.926182
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663897811600458796, guid: 8f7f2d2d946db5142a98fc1dae194761, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 11.926182
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663897811600458796, guid: 8f7f2d2d946db5142a98fc1dae194761, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000024367
+      objectReference: {fileID: 0}
     - target: {fileID: 3790978473763296758, guid: 8f7f2d2d946db5142a98fc1dae194761, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.8777508
@@ -410,10 +426,14 @@ PrefabInstance:
       propertyPath: rotationSpeed
       value: 200
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6982859292582549578, guid: 8f7f2d2d946db5142a98fc1dae194761, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5953157321159848656, guid: 8f7f2d2d946db5142a98fc1dae194761, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1950611282}
   m_SourcePrefab: {fileID: 100100000, guid: 8f7f2d2d946db5142a98fc1dae194761, type: 3}
 --- !u!1 &423563850
 GameObject:
@@ -676,7 +696,7 @@ Transform:
   m_GameObject: {fileID: 634765548}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.041, y: 0.219, z: 0}
+  m_LocalPosition: {x: 1.82, y: -1.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1674,6 +1694,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 10
+--- !u!1 &1950611279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5953157321159848656, guid: 8f7f2d2d946db5142a98fc1dae194761, type: 3}
+  m_PrefabInstance: {fileID: 413344854}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &1950611282
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950611279}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &2027797911
 GameObject:
   m_ObjectHideFlags: 0
