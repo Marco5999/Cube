@@ -39,16 +39,18 @@ public class PlayerHp : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        // Reduce the player's health
         currentHealth -= damage;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+    currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        // Update the health bar's scale
-        if (healthBar != null)
-        {
-            float healthPercent = currentHealth / maxHealth;
-            healthBar.localScale = new Vector3(originalScale.x * healthPercent, originalScale.y, originalScale.z);
-        }
+    // Update the health bar's scale
+    if (healthBar != null)
+    {
+        float healthPercent = currentHealth / maxHealth;
+        healthBar.localScale = new Vector3(originalScale.x * healthPercent, originalScale.y, originalScale.z);
+    }
+
+    // Trigger the flash effect
+    GetComponent<FlashDamage>()?.Flash();
     }
 
     public void Heal(float amount)
