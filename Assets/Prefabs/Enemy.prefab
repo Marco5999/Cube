@@ -205,5 +205,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   spriteRenderer: {fileID: 6601773536098578692}
-  flashColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  flashColor: {r: 0.8962264, g: 0.875089, b: 0.875089, a: 1}
   flashDuration: 0.1
