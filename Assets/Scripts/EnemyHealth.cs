@@ -13,12 +13,17 @@ public class EnemyHealth : MonoBehaviour
 
     public float flashDuration = 0.1f;  // How long the flash lasts
 
+    private EnemyAI enemyAI;  // Reference to the EnemyAI script (no need for Inspector now)
+
     void Start()
     {
         // Initialize health and the sprite renderer
         currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+
+        // Find the EnemyAI component on the same GameObject
+        enemyAI = GetComponent<EnemyAI>();
     }
 
     void Update()
@@ -51,7 +56,11 @@ public class EnemyHealth : MonoBehaviour
         // Optionally: You can destroy the enemy if health reaches 0
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            if (enemyAI != null)
+            {
+                enemyAI.KillEnemy();  // Call KillEnemy from EnemyAI to update points
+            }
+            Destroy(gameObject);  // Destroy the enemy
         }
     }
 
