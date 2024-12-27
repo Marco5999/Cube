@@ -106,6 +106,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   rotationSpeed: 200
+  pointsForKill: 10
+  pointTracker: {fileID: 0}
 --- !u!60 &2547440310957029165
 PolygonCollider2D:
   m_ObjectHideFlags: 0
