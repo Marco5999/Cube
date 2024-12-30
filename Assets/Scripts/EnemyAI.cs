@@ -11,6 +11,11 @@ public class EnemyAI : MonoBehaviour
     private bool isPlayerDetected = false;  // Flag to track if the player is in detection range
     public PointTracker pointTracker; // Reference to the PointTracker (no need for Inspector now)
 
+    // Variables for scaling effect
+    public float scaleMultiplier = 2f;  // How much the enemy scales up before destruction
+    public float scaleDuration = 0.5f;  // How long it takes to scale up
+    private Vector3 originalScale;  // Store the original scale
+
     void Start()
     {
         // Find the player in the scene (assuming the player has the "Player" tag)
@@ -18,6 +23,9 @@ public class EnemyAI : MonoBehaviour
         
         // Find PointTracker in the scene (assuming it's attached to a UI object)
         pointTracker = FindObjectOfType<PointTracker>();
+
+        // Store the original scale of the enemy
+        originalScale = transform.localScale;
     }
 
     void Update()
@@ -70,13 +78,32 @@ public class EnemyAI : MonoBehaviour
     // Call this method when the enemy is killed
     public void KillEnemy()
     {
+        // Scale up the enemy before destroying it
+        StartCoroutine(ScaleUpAndDestroy());
+
         // If PointTracker is found, update the points
         if (pointTracker != null)
         {
             pointTracker.UpdatePointFill(pointsForKill);  // Update the UI fill based on the points awarded
         }
+    }
 
-        // Destroy the enemy object after being killed
+    // Coroutine to scale up the enemy before destroying it
+    private IEnumerator ScaleUpAndDestroy()
+    {
+        // Scale up the enemy
+        float timeElapsed = 0f;
+        while (timeElapsed < scaleDuration)
+        {
+            transform.localScale = Vector3.Lerp(originalScale, originalScale * scaleMultiplier, timeElapsed / scaleDuration);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure final scale is exact
+        transform.localScale = originalScale * scaleMultiplier;
+
+        // Destroy the enemy after scaling
         Destroy(gameObject);
     }
 }

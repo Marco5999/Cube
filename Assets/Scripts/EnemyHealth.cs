@@ -57,10 +57,9 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             if (enemyAI != null)
-            {
-                enemyAI.KillEnemy();  // Call KillEnemy from EnemyAI to update points
-            }
-            Destroy(gameObject);  // Destroy the enemy
+    {
+        enemyAI.KillEnemy();  // Delegate destruction to EnemyAI
+    }
         }
     }
 
