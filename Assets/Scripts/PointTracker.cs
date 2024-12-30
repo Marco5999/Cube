@@ -6,9 +6,9 @@ using TMPro;
 
 public class PointTracker : MonoBehaviour
 {
-     public Image pointTrackerFillImage;  // Reference to the Image component (progress bar)
+    public Image pointTrackerFillImage;  // Reference to the Image component (progress bar)
     private float currentPoints = 0f;   // Current points
-    public float maxPoints = 100f;      // Max points (you can adjust this to set the max points)
+    public float maxPoints = 100f;      // Max points (starting at 100)
     public TextMeshProUGUI levelText;   // Reference to the TextMeshProUGUI component (for displaying level)
     private int currentLevel = 1;  // Current level (starting at Level 1)
 
@@ -45,6 +45,11 @@ public class PointTracker : MonoBehaviour
         pointTrackerFillImage.fillAmount = 0f;
 
         currentLevel++;  // Increment level
+
+        // Increase the maxPoints by multiplying it by 1.5 each level
+        maxPoints *= 1.5f;
+
+        // Update the level text
         levelText.text = "Level " + currentLevel;  // Update level text
     }
 }
