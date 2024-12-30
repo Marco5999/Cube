@@ -93,34 +93,28 @@ public class EnemyAI : MonoBehaviour
 
     private IEnumerator ScaleAndFadeAway()
     {
-        // Scale up the enemy gradually
-        Vector3 targetScale = originalScale * scaleUpFactor;  // Target size is double the original size
         float elapsedTime = 0f;
-
-        // Scale up effect
-        while (elapsedTime < scaleUpDuration)
-        {
-            transform.localScale = Vector3.Lerp(originalScale, targetScale, elapsedTime / scaleUpDuration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        // Make sure the scale is exactly the target scale
-        transform.localScale = targetScale;
-
-        // Fade away effect
+        Vector3 targetScale = originalScale * scaleUpFactor;  // Target size is double the original size
         Color originalColor = spriteRenderer.color;
-        elapsedTime = 0f;
 
-        while (elapsedTime < fadeDuration)
+        // While scaling up and fading out at the same time
+        while (elapsedTime < Mathf.Max(scaleUpDuration, fadeDuration))
         {
-            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);  // Fade from opaque to transparent
+            // Scaling logic
+            float scaleLerpTime = Mathf.Min(elapsedTime / scaleUpDuration, 1f);
+            transform.localScale = Vector3.Lerp(originalScale, targetScale, scaleLerpTime);
+
+            // Fading logic
+            float fadeLerpTime = Mathf.Min(elapsedTime / fadeDuration, 1f);
+            float alpha = Mathf.Lerp(1f, 0f, fadeLerpTime);
             spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // Ensure the enemy is fully transparent before destroying
+        // Ensure the enemy is fully transparent and at the target scale
+        transform.localScale = targetScale;
         spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
 
         // Destroy the enemy after fading
