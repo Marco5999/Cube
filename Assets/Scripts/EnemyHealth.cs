@@ -53,13 +53,13 @@ public class EnemyHealth : MonoBehaviour
             StartCoroutine(Flash());
         }
 
-        // Optionally: You can destroy the enemy if health reaches 0
+        // If health reaches 0, delegate destruction to the EnemyAI script
         if (currentHealth <= 0)
         {
             if (enemyAI != null)
-    {
-        enemyAI.KillEnemy();  // Delegate destruction to EnemyAI
-    }
+            {
+                enemyAI.KillEnemy();  // Delegate destruction (and any other logic) to EnemyAI
+            }
         }
     }
 

@@ -108,8 +108,9 @@ MonoBehaviour:
   rotationSpeed: 200
   pointsForKill: 10
   pointTracker: {fileID: 0}
-  scaleMultiplier: 2
-  scaleDuration: 0.2
+  scaleUpDuration: 0.2
+  scaleUpFactor: 2
+  fadeDuration: 0.2
 --- !u!60 &2547440310957029165
 PolygonCollider2D:
   m_ObjectHideFlags: 0

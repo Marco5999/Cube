@@ -11,10 +11,12 @@ public class EnemyAI : MonoBehaviour
     private bool isPlayerDetected = false;  // Flag to track if the player is in detection range
     public PointTracker pointTracker; // Reference to the PointTracker (no need for Inspector now)
 
-    // Variables for scaling effect
-    public float scaleMultiplier = 2f;  // How much the enemy scales up before destruction
-    public float scaleDuration = 0.5f;  // How long it takes to scale up
-    private Vector3 originalScale;  // Store the original scale
+    public float scaleUpDuration = 0.5f;  // Duration to scale up the enemy before destruction
+    public float scaleUpFactor = 2f;  // How much to scale the enemy (double size)
+    public float fadeDuration = 1f;  // Duration of the fade effect
+
+    private Vector3 originalScale;
+    private SpriteRenderer spriteRenderer;  // Reference to the sprite renderer for fade effect
 
     void Start()
     {
@@ -24,8 +26,9 @@ public class EnemyAI : MonoBehaviour
         // Find PointTracker in the scene (assuming it's attached to a UI object)
         pointTracker = FindObjectOfType<PointTracker>();
 
-        // Store the original scale of the enemy
+        // Store the original scale and sprite renderer
         originalScale = transform.localScale;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -78,32 +81,49 @@ public class EnemyAI : MonoBehaviour
     // Call this method when the enemy is killed
     public void KillEnemy()
     {
-        // Scale up the enemy before destroying it
-        StartCoroutine(ScaleUpAndDestroy());
-
         // If PointTracker is found, update the points
         if (pointTracker != null)
         {
             pointTracker.UpdatePointFill(pointsForKill);  // Update the UI fill based on the points awarded
         }
+
+        // Start the scaling and fading effect and then destroy the enemy
+        StartCoroutine(ScaleAndFadeAway());
     }
 
-    // Coroutine to scale up the enemy before destroying it
-    private IEnumerator ScaleUpAndDestroy()
+    private IEnumerator ScaleAndFadeAway()
     {
-        // Scale up the enemy
-        float timeElapsed = 0f;
-        while (timeElapsed < scaleDuration)
+        // Scale up the enemy gradually
+        Vector3 targetScale = originalScale * scaleUpFactor;  // Target size is double the original size
+        float elapsedTime = 0f;
+
+        // Scale up effect
+        while (elapsedTime < scaleUpDuration)
         {
-            transform.localScale = Vector3.Lerp(originalScale, originalScale * scaleMultiplier, timeElapsed / scaleDuration);
-            timeElapsed += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(originalScale, targetScale, elapsedTime / scaleUpDuration);
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // Ensure final scale is exact
-        transform.localScale = originalScale * scaleMultiplier;
+        // Make sure the scale is exactly the target scale
+        transform.localScale = targetScale;
 
-        // Destroy the enemy after scaling
+        // Fade away effect
+        Color originalColor = spriteRenderer.color;
+        elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
+        {
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);  // Fade from opaque to transparent
+            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure the enemy is fully transparent before destroying
+        spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+
+        // Destroy the enemy after fading
         Destroy(gameObject);
     }
 }
