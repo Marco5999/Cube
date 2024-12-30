@@ -1848,6 +1848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointTrackerFillImage: {fileID: 1913025213}
   maxPoints: 100
+  levelText: {fileID: 1154924787}
 --- !u!4 &2144237692
 Transform:
   m_ObjectHideFlags: 0
